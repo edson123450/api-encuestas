@@ -1,0 +1,86 @@
+org: edsonguardamino
+service: api-encuestas
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  iam:
+    role: arn:aws:iam::051476014162:role/LabRole
+
+functions:
+  crear:
+    handler: CrearEncuesta.lambda_handler
+    events:
+      - http:
+          path: /encuestas/crear
+          method: post
+          cors: true
+          integration: lambda
+          request:
+            template:
+              application/json: |
+                {
+                  "method": "$context.httpMethod",
+                  "path": "$context.path",
+                  "headers": {
+                    "Authorization": "$input.params('Authorization')"
+                  },
+                  "body": $input.json('$')
+                }
+  listarencuestas:
+    handler: ListarEncuestas.lambda_handler
+    events:
+      - http:
+          path: /encuestas/listarencuestas
+          method: post
+          cors: true
+          integration: lambda
+          request:
+            template:
+              application/json: |
+                {
+                  "method": "$context.httpMethod",
+                  "path": "$context.path",
+                  "headers": {
+                    "Authorization": "$input.params('Authorization')"
+                  },
+                  "body": $input.json('$')
+                }
+  listarencuestastipo:
+    handler: ListarEncuestasTipo.lambda_handler
+    events:
+      - http:
+          path: /encuestas/listarencuestastipo
+          method: post
+          cors: true
+          integration: lambda
+          request:
+            template:
+              application/json: |
+                {
+                  "method": "$context.httpMethod",
+                  "path": "$context.path",
+                  "headers": {
+                    "Authorization": "$input.params('Authorization')"
+                  },
+                  "body": $input.json('$')
+                }
+  listarencuestastipoprograma:
+    handler: ListarEncuestasTipoPrograma.lambda_handler
+    events:
+      - http:
+          path: /encuestas/listarencuestastipoprograma
+          method: post
+          cors: true
+          integration: lambda
+          request:
+            template:
+              application/json: |
+                {
+                  "method": "$context.httpMethod",
+                  "path": "$context.path",
+                  "headers": {
+                    "Authorization": "$input.params('Authorization')"
+                  },
+                  "body": $input.json('$')
+                }
