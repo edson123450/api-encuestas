@@ -84,3 +84,46 @@ functions:
                   },
                   "body": $input.json('$')
                 }
+
+resources:
+  Resources:
+    TablaEncuestas:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: tabla_encuestas
+        AttributeDefinitions:
+          - AttributeName: tenant_id#c_programa
+            AttributeType: S
+          - AttributeName: tipo#c_estudiante
+            AttributeType: S
+          - AttributeName: tenant_id#c_estudiante
+            AttributeType: S
+          - AttributeName: tipo#c_programa
+            AttributeType: S
+          - AttributeName: tenant_id#tipo
+            AttributeType: S
+          - AttributeName: c_programa#c_estudiante
+            AttributeType: S
+        KeySchema:
+          - AttributeName: tenant_id#c_programa
+            KeyType: HASH
+          - AttributeName: tipo#c_estudiante
+            KeyType: RANGE
+        BillingMode: PAY_PER_REQUEST
+        GlobalSecondaryIndexes:
+          - IndexName: tenantcestudiante-tipocprograma
+            KeySchema:
+              - AttributeName: tenant_id#c_estudiante
+                KeyType: HASH
+              - AttributeName: tipo#c_programa
+                KeyType: RANGE
+            Projection:
+              ProjectionType: ALL
+          - IndexName: tenanttipo-cprogramacestudiante
+            KeySchema:
+              - AttributeName: tenant_id#tipo
+                KeyType: HASH
+              - AttributeName: c_programa#c_estudiante
+                KeyType: RANGE
+            Projection:
+              ProjectionType: ALL
