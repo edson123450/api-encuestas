@@ -93,11 +93,11 @@ exports.lambda_handler = async (event) => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
+            body: {
                 status: 'success',
                 message: 'Encuesta creada correctamente.',
                 data: item,
-            }, null, 2),
+            },
         };
     } catch (error) {
         console.error('Error al insertar en DynamoDB:', error);
