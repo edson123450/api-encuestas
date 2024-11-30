@@ -85,10 +85,10 @@ exports.lambda_handler = async (event) => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
+            body: {
                 status: 'success',
                 data: data.Items,
-            }, null, 2),
+            },
         };
     } catch (error) {
         console.error('Error al consultar DynamoDB:', error);
